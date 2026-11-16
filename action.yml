@@ -1,0 +1,68 @@
+name: "Cormak Content Generator"
+author: Cormak
+description: "Draft articles, SEO copy and product descriptions as Markdown."
+branding:
+  icon: edit-3
+  color: black
+inputs:
+  request_id:
+    description: "Stable UUID for one operation. Reuse it unchanged on retries."
+    required: true
+  allow_paid:
+    description: "Explicit opt-in to a charge against Cormak credits."
+    required: false
+    default: "false"
+  max_credits:
+    description: "Maximum credits accepted for a new generation."
+    required: true
+  kind:
+    description: "article, seo, or product."
+    required: false
+    default: "article"
+  topic:
+    description: "Article topic or product name."
+    required: true
+  keywords:
+    description: "For SEO: up to 12 keywords separated by commas."
+    required: false
+    default: ""
+  product_facts:
+    description: "For product: verified facts, up to 6000 characters."
+    required: false
+    default: ""
+  audience:
+    description: "Optional article audience, up to 300 characters."
+    required: false
+    default: ""
+  words:
+    description: "Article length: 500, 1000, 1500, 2000 or 3000."
+    required: false
+    default: "500"
+  style:
+    description: "Article style: expert, sales, informational or conversational."
+    required: false
+    default: "informational"
+  tone:
+    description: "Product tone: neutral, friendly, premium, expert, playful or minimal."
+    required: false
+    default: "neutral"
+  language:
+    description: "Language tag, such as en or ru."
+    required: false
+    default: "en"
+  output_path:
+    description: "New path under generated/. Must end in .md."
+    required: false
+    default: "generated/content.md"
+outputs:
+  request_id:
+    description: The operation UUID.
+  status:
+    description: complete or awaiting_confirmation.
+  output_path:
+    description: Workspace path of the draft, when complete.
+  credits_charged:
+    description: Credits reported by Cormak, when available.
+runs:
+  using: node24
+  main: main.mjs
